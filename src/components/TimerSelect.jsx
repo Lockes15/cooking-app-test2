@@ -3,12 +3,13 @@ import '../styles/App.css';
 import Timer from './Timers';
 import presetTimersData from '../data/presetTimersData'; // Import presetTimersData
 
-const TimerSelect = () => {
+const TimerSelect = ({timer}) => {
   // Use presetTimersData directly here and try to load a saved timer
   const [selectedTimer, setSelectedTimer] = useState(() => {
     const savedTimerId = localStorage.getItem('selectedTimerId');
     return savedTimerId ? presetTimersData.find(t => t.id === parseInt(savedTimerId)) : null;
   });
+
 
   useEffect(() => {
     if (!selectedTimer && Array.isArray(presetTimersData) && presetTimersData.length > 0) {
@@ -23,7 +24,7 @@ const TimerSelect = () => {
   return (
     <>
       {Array.isArray(presetTimersData) && presetTimersData.length > 0 ? (
-        presetTimersData.map(timer => (
+        // presetTimersData.map(timer => (
           <div key={timer.id} className="timerSelect">
             <h2 onClick={() => setSelectedTimer(prev => prev?.id === timer.id ? null : timer)}>
               {timer.name}
@@ -36,7 +37,7 @@ const TimerSelect = () => {
               </div>
             )}
           </div>
-        ))
+        // ))
       ) : (
         <p>No timers available.</p>
       )}
